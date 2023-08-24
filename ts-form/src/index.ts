@@ -1,4 +1,10 @@
-const el = (ref) => document.querySelector(ref);
+import {
+  TitleValidation, FirstNameValidation, LastNameValidation,
+  EmailValidation, PhoneValidation, PasswordValidation,
+  RePasswordValidation
+} from './type/validation';
+import { el, getField } from './service/domService';
+
 
 // Alternativ 2
 const validations = [
@@ -11,17 +17,18 @@ const validations = [
   new RePasswordValidation('repassword', '.repassword-field')
 ]
 
-function handleSubmit(event) {
+function handleSubmit(event: Event) {
   event.preventDefault();
+
   let validationErrors = 0;
   let formValue = {};
 
   for(let validation of validations) {
     if(!validation.verify()) {
       validationErrors += 1;
-      el(validation.ref).style.backgroundColor = 'red';
+      getField(validation.ref).style.backgroundColor = 'red';
     }
-    formValue[validation.name] = el(validation.ref).value;
+    formValue[validation.name] = getField(validation.ref).value;
   }
 
   if(validationErrors > 0) return false;

@@ -1,49 +1,57 @@
+import { el, getField, getFieldValue } from './../service/domService';
+
+//class Validation { constructor(public name: string, public ref: string){} }
+
 class Validation {
-  constructor(name, ref) {
+  name: string;
+  ref: string;
+
+  constructor(name: string, ref: string) {
     this.name = name;
     this.ref = ref;
   }
 }
 
-class TitleValidation extends Validation {
+
+export class TitleValidation extends Validation {
   verify() {
-    return el(this.ref).value !== 'Title';
+    return getFieldValue(this.ref) !== 'Title';
   }
 }
 
-class FirstNameValidation extends Validation {
+export class FirstNameValidation extends Validation {
   verify() {
-    return el(this.ref).value.length > 2;
+    return getFieldValue(this.ref).length > 2;
   }
 }
 
-class LastNameValidation extends Validation {
+export class LastNameValidation extends Validation {
   verify() {
-    return el(this.ref).value.length > 2;
+    return getFieldValue(this.ref).length > 2;
   }
 }
 
-class EmailValidation extends Validation {
+export class EmailValidation extends Validation {
   verify() {
-    let value = el(this.ref).value;
+    let value = getFieldValue(this.ref);
     return value.includes("@") && value.includes(".");
   }
 }
 
-class PhoneValidation extends Validation {
+export class PhoneValidation extends Validation {
   verify() {
-    return Number.isInteger(el(this.ref).value.replace(" ", ""));
+    return Number.isInteger(getFieldValue(this.ref).replace(" ", ""));
   }
 }
 
-class PasswordValidation extends Validation {
+export class PasswordValidation extends Validation {
   verify() {
-    return el(this.ref).value.length > 3
+    return getFieldValue(this.ref).length > 3
   }
 }
 
-class RePasswordValidation extends Validation {
+export class RePasswordValidation extends Validation {
   verify() {
-    return el(this.ref).value === el('.password-field').value
+    return getFieldValue(this.ref) === getField('.password-field').value
   }
 }
