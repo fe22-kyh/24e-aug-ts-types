@@ -1,14 +1,15 @@
+import { Validation } from './abstract/abstractValidation';
 import {
   TitleValidation, FirstNameValidation, LastNameValidation,
   EmailValidation, PhoneValidation, PasswordValidation,
-  RePasswordValidation, Validation
-} from './type/validation';
-import { el, getField } from './service/domService';
-
+  RePasswordValidation
+} from './model/validationModel';
+import { el, getField, getFieldValue } from './service/domService';
+import { ValidationValue } from './type/validationType';
 
 // Alternativ 2
 const validations: Validation[] = [
-  new TitleValidation('title', '.title-field'),
+  new TitleValidation('title', '.title-field'), // (validation prop (se validationType.ts), html-klass)
   new FirstNameValidation('firstName', '.fName-field'),
   new LastNameValidation('lastName', '.lName-field'),
   new EmailValidation('email', '.email-field'),
@@ -20,19 +21,19 @@ const validations: Validation[] = [
 function handleSubmit(event: Event) {
   event.preventDefault();
 
-  let validationErrors = 0;
-  let formValue = {};
+  let errors = 0;
+  let values: ValidationValue = {};
 
   for(let validation of validations) {
     if(!validation.verify()) {
-      validationErrors += 1;
+      errors += 1;
       getField(validation.ref).style.backgroundColor = 'red';
     }
-    formValue[validation.name] = getField(validation.ref).value;
+    values[validation.name] = getFieldValue(validation.ref);
   }
 
-  if(validationErrors > 0) return false;
+  if(errors > 0) return false;
 
-  console.table(formValue);
+  console.table(values);
 }
 el('.club-form').addEventListener('submit', handleSubmit);

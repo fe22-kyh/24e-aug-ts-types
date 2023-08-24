@@ -1,6 +1,12 @@
+/**
+ * This file represents actions made to the DOM API
+ * That is, any integrations towards the external DOM API
+ */
+
 // interface IElement extends Element {
 //   value?: string;
 // }
+
 
 /**
  * Used to fetch any kind of element regardless of their base type
@@ -26,7 +32,7 @@ export function el(ref: string): Element {
 export function getField(ref: string): HTMLInputElement {
   const field = el(ref) as HTMLInputElement;
   
-  if(field.value == undefined) {
+  if(field.value == undefined) { // null-check (är värdet definerat? dvs. EJ optional)
     throw new Error(`Element ${ref} is not a input element`);
   }
 
