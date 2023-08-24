@@ -1,13 +1,13 @@
 import {
   TitleValidation, FirstNameValidation, LastNameValidation,
   EmailValidation, PhoneValidation, PasswordValidation,
-  RePasswordValidation
+  RePasswordValidation, Validation
 } from './type/validation';
 import { el, getField } from './service/domService';
 
 
 // Alternativ 2
-const validations = [
+const validations: Validation[] = [
   new TitleValidation('title', '.title-field'),
   new FirstNameValidation('firstName', '.fName-field'),
   new LastNameValidation('lastName', '.lName-field'),

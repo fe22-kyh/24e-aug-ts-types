@@ -2,7 +2,7 @@ import { el, getField, getFieldValue } from './../service/domService';
 
 //class Validation { constructor(public name: string, public ref: string){} }
 
-class Validation {
+export class Validation {
   name: string;
   ref: string;
 
@@ -10,6 +10,8 @@ class Validation {
     this.name = name;
     this.ref = ref;
   }
+
+  verify(): boolean { return false } // dummy function, aka foo
 }
 
 
