@@ -1,8 +1,13 @@
 import { el, getField, getFieldValue } from './../service/domService';
 
+
+interface HasVerify {
+  verify: () => boolean; //abstract method (ej implementerad)
+}
+
 //class Validation { constructor(public name: string, public ref: string){} }
 
-export class Validation {
+export abstract class Validation implements HasVerify { // basklass, abstract syftar på att objektet Måste extendas av en annan klass för att instansieras
   name: string;
   ref: string;
 
@@ -11,11 +16,11 @@ export class Validation {
     this.ref = ref;
   }
 
-  verify(): boolean { return false } // dummy function, aka foo
+  abstract verify(): boolean; // denna implementeras av ärvda klasser, inte i basklassen
 }
 
 
-export class TitleValidation extends Validation {
+export class TitleValidation extends Validation { // barn till validation, ärvd från validation (är en validation plus mer)
   verify() {
     return getFieldValue(this.ref) !== 'Title';
   }
